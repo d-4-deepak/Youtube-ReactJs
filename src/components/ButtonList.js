@@ -1,0 +1,28 @@
+import React from "react";
+import Button from "./Button";
+
+const ButtonList = () => {
+    const itemList = [
+      "Flex", "All", "Gaming", "Songs", "Live", "Soccer", "Songs", "Cricket",
+      "Cooking", "News", "Flex", "All", "Gaming", "Songs", "Live", "Soccer", "Flex", "All", "Gaming", "Songs", "Live", "Soccer","Flex", "All", "Gaming", "Songs", "Live"
+    ];
+  
+    return (
+      <div className="w-full  ">
+      <div className="flex overflow-x-auto whitespace-nowrap space-x-3 px-4 py-2 scrollbar-hide no-scrollbar">
+        {itemList.map((item, idx) => (
+          <button
+            key={idx}
+            className="shrink-0 bg-gray-200 hover:bg-gray-300 px-4 py-1 rounded-lg text-sm"
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    </div>
+  
+    );
+  };
+  
+
+export default ButtonList
