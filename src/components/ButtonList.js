@@ -8,7 +8,7 @@ const ButtonList = () => {
     ];
   
     return (
-      <div className="w-full  ">
+      <div className="w-full ml-60 mt-18  ">
       <div className="flex overflow-x-auto whitespace-nowrap space-x-3 px-4 py-2 scrollbar-hide no-scrollbar">
         {itemList.map((item, idx) => (
           <button

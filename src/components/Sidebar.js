@@ -11,12 +11,40 @@ const Sidebar = ()=>{
     }
 
     return (
-        <div className="p-5 shadow-lg w-54">
+        <div className="fixed top-18 left-0 h-[calc(100vh-6rem)] w-60 overflow-y-auto p-5 shadow-lg bg-gray-200 sidebar-scroll">
               <ul>
-                <li>Home</li>
+                <li>Home </li>
                 <li>Shorts</li>
                 <li>Video</li>
                 <li>Live</li>
+            </ul>
+            <h1 className="font-bold pt-5"> Subscription</h1>
+            <ul>
+                <li>Music</li>
+                <li>Sports</li>
+                <li>Gaming</li>
+                <li>Movies</li>
+            </ul>
+            <h1 className="font-bold pt-5"> Subscription</h1>
+            <ul>
+                <li>Music</li>
+                <li>Sports</li>
+                <li>Gaming</li>
+                <li>Movies</li>
+            </ul>
+            <h1 className="font-bold pt-5"> Subscription</h1>
+            <ul>
+                <li>Music</li>
+                <li>Sports</li>
+                <li>Gaming</li>
+                <li>Movies</li>
+            </ul>
+            <h1 className="font-bold pt-5"> Subscription</h1>
+            <ul>
+                <li>Music</li>
+                <li>Sports</li>
+                <li>Gaming</li>
+                <li>Movies</li>
             </ul>
             <h1 className="font-bold pt-5"> Subscription</h1>
             <ul>

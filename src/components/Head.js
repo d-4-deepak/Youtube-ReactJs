@@ -14,7 +14,7 @@ const toggleMenuHandler = ()=>{
   dispatch(toggleMenu())
 }
   return (
-    <div className="grid grid-flow-col p-2 m-2 shadow">
+    <div className="fixed h-16  w-full grid grid-flow-col p-3 pb-2 mb-4 shadow bg-white ">
       <div className="flex col-span-1">
         <img
           onClick={toggleMenuHandler}
