@@ -21,4 +21,12 @@ const VideoCard = ({info}) => {
   )
 }
 
+// export const AdVideoCard = ({info})=>{
+//   return(
+//     <div className='relative'>
+//       <span className='bg-white text-black font-bold absolute bottom-40 right-7 inline-block w-8 text-center '>Ad</span>
+//       <VideoCard info={info}/>
+//     </div>
+//   )
+// }
 export default VideoCard
