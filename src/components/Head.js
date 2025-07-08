@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
  import { toggleMenu } from "../utils/appSlice";
 import { _NEVER } from "@reduxjs/toolkit/query";
+import { cacheResults } from "../utils/searchSlice";
 
 // import { toggleMenu } from "../utils/appSlice";
 
@@ -16,6 +17,8 @@ const Head = () => {
 
   const [showSuggestions,setShowSuggestions] = useState(false);
 
+  const searchCache = useSelector((store)=>store.search)
+
   useEffect(() => {
     if (!searchQuery) return;
 
@@ -25,7 +28,11 @@ const Head = () => {
      * decline the API call
      */
     const timer = setTimeout(()=>{
-      getSearchSuggestion();
+      if(searchCache[searchQuery]){
+        setSuggestions(searchCache[searchQuery])
+      }else{
+        getSearchSuggestion();
+      }
     },200)
 
     return ()=>{
@@ -42,10 +49,12 @@ const Head = () => {
       const json = await data.json();
       setSuggestions(json);
       console.log("Suggestions:", json);
+      dispatch(cacheResults({[searchQuery]:json}))
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
     console.log(searchQuery);
+    
 
   };
 
