@@ -75,6 +75,10 @@ const toggleMenuHandler = ()=>{
   dispatch(toggleMenu())
 }
 
+const handleSearchClick = (s)=>{  
+  setSearchQuery(s);
+}
+
   return (
     <div className="fixed h-16  w-full grid grid-flow-col p-3 pb-2 mb-4 shadow bg-white ">
       <div className="flex col-span-1">
@@ -101,7 +105,9 @@ const toggleMenuHandler = ()=>{
           value={searchQuery}
           onChange={(e)=>setSearchQuery(e.target.value)}
           onFocus={()=>setShowSuggestions(true)}
-          onBlur={()=>setShowSuggestions(false)}
+          onBlur={() => {
+            setTimeout(() => setShowSuggestions(false), 100);
+          }}
         />
         <button className="border border-gray-400 p-2 px-6 rounded-r-full bg-gray-100">
           <i className="fa-solid fa-magnifying-glass text-[1.2rem]"></i>
@@ -110,7 +116,7 @@ const toggleMenuHandler = ()=>{
 
           {searchQuery && showSuggestions && <div className="fixed bg-white px-8 py-2 w-[36rem] border border-gray-100 rounded-lg shadow-lg z-50">
             <ul>
-              {suggestions.map((s)=><li key={s} className="py-3 border-b  border-b-gray-200 hover:bg-gray-100 "><i className="fa-solid fa-magnifying-glass "></i>
+              {suggestions.map((s)=><li onMouseDown={() => handleSearchClick(s)}  key={s} className="py-3 border-b  border-b-gray-200 hover:bg-gray-100 "><i className="fa-solid fa-magnifying-glass "></i>
                 <span className="px-4 font-bold">{s}</span></li>)}
 
             </ul>
