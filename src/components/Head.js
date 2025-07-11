@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
  import { toggleMenu } from "../utils/appSlice";
 import { _NEVER } from "@reduxjs/toolkit/query";
 import { cacheResults } from "../utils/searchSlice";
+import { setQuery } from "../utils/searchQuerySlice";
 
 // import { toggleMenu } from "../utils/appSlice";
 
@@ -10,6 +11,7 @@ import { cacheResults } from "../utils/searchSlice";
 // import { useDispatch } from "react-redux";
 
 const Head = () => {
+  // const searchQuery = useSelector((store)=>store.searchQuery.query)
 
   const [searchQuery,setSearchQuery] = useState("");
 
@@ -18,6 +20,9 @@ const Head = () => {
   const [showSuggestions,setShowSuggestions] = useState(false);
 
   const searchCache = useSelector((store)=>store.search)
+
+  const inputRef = useRef(null);
+
 
   useEffect(() => {
     if (!searchQuery) return;
@@ -75,8 +80,16 @@ const toggleMenuHandler = ()=>{
   dispatch(toggleMenu())
 }
 
-const handleSearchClick = (s)=>{  
+
+const handleSearchClick = (e,s)=>{ 
+  e.preventDefault();
+  dispatch(setQuery(s))
   setSearchQuery(s);
+  setShowSuggestions(false);
+   // 👇 force input to lose focus
+   if (inputRef.current) {
+    inputRef.current.blur();
+  }
 }
 
   return (
@@ -98,12 +111,14 @@ const handleSearchClick = (s)=>{
         </a>
       </div>
       <div className="col-span-10 ml-60">
-        <div className="relative">
+        <form onSubmit={(e)=>handleSearchClick(e,searchQuery)} className="relative">
         <input
+        ref={inputRef}
           className="border border-gray-400 w-3/5 p-2 rounded-l-full"
           type="text"
           value={searchQuery}
-          onChange={(e)=>setSearchQuery(e.target.value)}
+          onChange={(e)=>{setSearchQuery(e.target.value)}
+          }
           onFocus={()=>setShowSuggestions(true)}
           onBlur={() => {
             setTimeout(() => setShowSuggestions(false), 100);
@@ -112,11 +127,11 @@ const handleSearchClick = (s)=>{
         <button className="border border-gray-400 p-2 px-6 rounded-r-full bg-gray-100">
           <i className="fa-solid fa-magnifying-glass text-[1.2rem]"></i>
         </button>
-        </div>
+        </form>
 
           {searchQuery && showSuggestions && <div className="fixed bg-white px-8 py-2 w-[36rem] border border-gray-100 rounded-lg shadow-lg z-50">
             <ul>
-              {suggestions.map((s)=><li onMouseDown={() => handleSearchClick(s)}  key={s} className="py-3 border-b  border-b-gray-200 hover:bg-gray-100 "><i className="fa-solid fa-magnifying-glass "></i>
+              {suggestions.map((s)=><li onMouseDown={(e) => handleSearchClick(e,s)}  key={s} className="py-3 border-b  border-b-gray-200 hover:bg-gray-100 "><i className="fa-solid fa-magnifying-glass "></i>
                 <span className="px-4 font-bold">{s}</span></li>)}
 
             </ul>
