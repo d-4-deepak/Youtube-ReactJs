@@ -7,6 +7,8 @@ import { generateRandomNames, generateRandomString } from '../utils/helper';
 
 const LiveChat = () => {
 
+  const isMenuOpen = useSelector((store)=>store.app.isMenuOpen)
+
   const [liveMessage,setLiveMessage] = useState("");
   const chatMessages = useSelector((store)=>store.chat.messages)
 
@@ -28,11 +30,11 @@ const LiveChat = () => {
 
   return (
     <>
-    <div className=' flex flex-col-reverse ml-2 border border-black w-full h-[500px] bg-slate-100 rounded-lg overflow-y-scroll'>
+    <div className={`flex flex-col-reverse ml-2 border border-black max-w-[600px] ${isMenuOpen?`w-84`:`w-[full]`} h-[500px] bg-slate-100 rounded-lg overflow-y-scroll sidebar-scroll`}>
      {chatMessages.map((c,index)=> (<ChatMessages key={index} name={c.name} message={c.message}/>))}
     </div>
 
-    <form className='w-full  m-2 border border-black' onSubmit={(e)=>{
+    <form className={`${isMenuOpen?`w-84`:`w-[full]`}  m-2 border border-black`} onSubmit={(e)=>{
       e.preventDefault() 
       dispatch(addMessages({
         name:"Deepak Gupta",
@@ -42,7 +44,7 @@ const LiveChat = () => {
       
     }}>
 
-      <input placeholder='comment...' className='w-[31rem] h-13 pl-2' type='text' value={liveMessage} onChange={(e)=>setLiveMessage(e.target.value)}/>
+      <input placeholder='comment...' className={`${isMenuOpen?`w-64`:`w-[30rem]`} h-13 pl-2`} type='text' value={liveMessage} onChange={(e)=>setLiveMessage(e.target.value)}/>
       <button className='px-2 mx-3 bg-green-200'>send</button>
     </form>
 
